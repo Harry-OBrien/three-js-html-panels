@@ -1,0 +1,16 @@
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  size: cover;
+}
+
+main {
+  background: #000;
+  background-color: #000;
+  overflow-x: hidden;
+  z-index: 99;
+  width: 100%;
+  font-family: 'Jakarta Sans', sans-serif;
+  min-height: 300vh;
+}
