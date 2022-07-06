@@ -1,15 +1,15 @@
 import './style.scss'
 
 import * as THREE from 'three';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { DoubleSide } from 'three';
+import { CSS3DRenderer, CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
 });
-// const controls = new OrbitControls(camera, renderer.domElement);
+
 const ambientLight = new THREE.AmbientLight(0xffffff);
 const gridHelper = new THREE.GridHelper(200, 50);
 
@@ -23,7 +23,18 @@ Math.degrees = function (radians) {
   return radians * 180 / Math.PI;
 }
 
-const NUM_PANELS = 8;
+const PROJECTS = [
+  'H', 'Hydrogen', '1.00794', 1, 1,
+  'He', 'Helium', '4.002602', 18, 1,
+  'Li', 'Lithium', '6.941', 1, 2,
+  'Be', 'Beryllium', '9.012182', 2, 2,
+  'B', 'Boron', '10.811', 13, 2,
+  'C', 'Carbon', '12.0107', 14, 2,
+  'N', 'Nitrogen', '14.0067', 15, 2,
+  'O', 'Oxygen', '15.9994', 16, 2,
+];
+
+const NUM_PANELS = PROJECTS.length / 5;
 const panels = [];
 const PANEL_WIDTH = 12;
 const PANEL_HEIGHT = 16;
@@ -47,8 +58,7 @@ function lerp(x, y, a) {
   return (1 - a) * x + a * y
 }
 
-function moveCamera() {
-  // const scrollOffset = document.documentElement.scrollTop;
+function pageDidScroll() {
   const scrollPercent = document.documentElement.scrollTop /
     (document.documentElement.scrollHeight - document.documentElement.clientHeight);
 
@@ -58,7 +68,6 @@ function moveCamera() {
 
 function radialLayout(items, initOffset) {
   var offset = initOffset;
-  console.log(items[0]);
   items.forEach((panel, _) => {
     const x = RADIUS * Math.sin(-offset);
     const z = RADIUS * Math.cos(-offset);
@@ -89,14 +98,13 @@ function setup() {
 
   createPanels();
 
-  document.body.onscroll = moveCamera;
-  moveCamera();
+  document.body.onscroll = pageDidScroll;
+  pageDidScroll();
 }
 
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate);
-  // controls.update();
   renderer.render(scene, camera);
 }
 
