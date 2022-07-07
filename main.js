@@ -2,13 +2,13 @@ import './style.scss'
 
 import * as THREE from 'three';
 import { DoubleSide } from 'three';
-import { CSS3DRenderer, CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import { CSS3DRenderer, CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector('#bg'),
-});
+const renderer = new CSS3DRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.getElementById('bg').appendChild(renderer.domElement);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
 const gridHelper = new THREE.GridHelper(200, 50);
@@ -47,8 +47,15 @@ function makePanelInstance(width, height) {
   const geometry = new THREE.PlaneGeometry(width, height);
   const material = new THREE.MeshStandardMaterial({
     color: Math.random() * 0xffffff,
-    side: THREE.DoubleSide,
+    side: DoubleSide,
   });
+
+
+  // let el = document.createElement("div");
+  // el.innerHTML = "<h1>Hello world!</h1>";
+  // let obj = new CSS3DObject(el);
+
+  // return obj;
 
   var panel = new THREE.Mesh(geometry, material);
   return panel;
@@ -87,11 +94,12 @@ function createPanels() {
 }
 
 function setup() {
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  // renderer.setPixelRatio(window.devicePixelRatio);
+  // renderer.setSize(window.innerWidth, window.innerHeight);
+
   camera.position.setY(PANEL_HEIGHT * 3 / 4);
   camera.lookAt(0, PANEL_HEIGHT / 2, RADIUS);
-  renderer.render(scene, camera);
+  // renderer.render(scene, camera);
 
   scene.add(ambientLight);
   scene.add(gridHelper);
