@@ -9,10 +9,12 @@ export class PanelSet {
         this.panelSpacingRads = _options.panelOffset;
         this.panelWidth = _options.panelWidth;
         this.panelHeight = _options.panelHeight;
+        this.panelScale = _options.scale;
+        this.radius *= this.panelScale;
 
         this.onScroll = this.onScroll.bind(this);
 
-        this.panelOffset = 2 * Math.asin(this.panelWidth / (2 * this.radius)) + this.panelSpacingRads;
+        this.panelOffset = 2 * Math.asin(this.panelWidth * this.panelScale / (2 * this.radius)) + this.panelSpacingRads;
         this.setPanels(_options.projectData);
         this.maxRotation = (this.panels.length - 1) * this.panelOffset;
 
@@ -29,7 +31,7 @@ export class PanelSet {
             const x = this.radius * Math.sin(offset);
             const z = -this.radius * Math.cos(offset);
 
-            panel.container.position.set(x, this.panelHeight / 2, z);
+            panel.container.position.set(x, this.panelHeight * this.panelScale / 2, z);
             panel.container.rotation.set(0, -offset, 0);
             offset -= this.panelOffset;
         });
@@ -48,8 +50,9 @@ export class PanelSet {
             const panel = new Panel({
                 width: this.panelWidth,
                 height: this.panelHeight,
+                scale: 0.25,
                 colour: new THREE.Color(Math.random() * 0xffffff),
-                data: data
+                data: data,
             });
 
             this.panels.push(panel);

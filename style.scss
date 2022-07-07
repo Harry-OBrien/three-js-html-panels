@@ -1,8 +1,10 @@
-canvas {
+#webgl-canvas,
+#css3d-canvas {
   position: fixed;
   top: 0;
   left: 0;
-  size: cover;
+  width: 100vw;
+  height: 100vh;
 }
 
 body {
@@ -16,7 +18,7 @@ main {
   z-index: 99;
   width: 100%;
   font-family: 'Jakarta Sans', sans-serif;
-  // min-height: 300vh;
+  min-height: 300vh;
 }
 
 // a {

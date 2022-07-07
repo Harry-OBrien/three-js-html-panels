@@ -8,6 +8,7 @@ export class Panel {
         this.height = _options.height;
         this.colour = _options.colour;
         this.content = _options.data;
+        this.scale = _options.scale;
 
         this.container = new THREE.Object3D();
         this.setPanel();
@@ -28,6 +29,7 @@ export class Panel {
         div.style.background = this.colour.getStyle();
 
         const object = new CSS3DObject(div);
+        object.scale.set(this.scale, this.scale, this.scale);
         this.container.add(object);
     }
 
