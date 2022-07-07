@@ -1,5 +1,11 @@
 
 function createCSS3DObject(content) {
+    var content = '<div>' +
+        '<h1>This is an H1 Element.</h1>' +
+        '<span class="large">Hello Three.js</span>' +
+        '<textarea> And this is a textarea</textarea>' +
+        '</div>';
+
     // convert the string to dome elements
     var wrapper = document.createElement('div');
     wrapper.innerHTML = content;

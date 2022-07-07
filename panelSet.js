@@ -15,6 +15,8 @@ export class PanelSet {
         this.panelOffset = 2 * Math.asin(this.panelWidth / (2 * this.radius)) + this.panelSpacingRads;
         this.setPanels(_options.projectData);
         this.maxRotation = (this.panels.length - 1) * this.panelOffset;
+
+        this.radialLayout(this.panels, 0);
     }
 
     lerp(x, y, a) {
@@ -24,8 +26,8 @@ export class PanelSet {
     radialLayout(items, initOffset) {
         var offset = initOffset;
         items.forEach((panel, _) => {
-            const x = this.radius * Math.sin(-offset);
-            const z = this.radius * Math.cos(-offset);
+            const x = this.radius * Math.sin(offset);
+            const z = -this.radius * Math.cos(offset);
 
             panel.container.position.set(x, this.panelHeight / 2, z);
             panel.container.rotation.set(0, -offset, 0);
@@ -44,9 +46,9 @@ export class PanelSet {
     setPanels(project_data) {
         project_data.forEach((data, idx) => {
             const panel = new Panel({
-                width: 12,
-                height: 16,
-                colour: 0xffffff * Math.random(),
+                width: this.panelWidth,
+                height: this.panelHeight,
+                colour: new THREE.Color(Math.random() * 0xffffff),
                 data: data
             });
 

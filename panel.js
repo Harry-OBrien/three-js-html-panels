@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { DoubleSide } from 'three';
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer';
 
 export class Panel {
     constructor(_options) {
@@ -13,31 +14,21 @@ export class Panel {
     }
 
     setPanel() {
-        const geometry = new THREE.PlaneGeometry(this.width, this.height);
-        const material = new THREE.MeshStandardMaterial({
-            color: this.colour,
-            side: DoubleSide,
-        });
+        // convert the string to dome elements
+        var wrapper = document.createElement('div');
+        wrapper.innerHTML = this.content;
+        var div = wrapper.firstChild;
 
-        // var content = '<div>' +
-        //     '<h1>This is an H1 Element.</h1>' +
-        //     '<span class="large">Hello Three.js cookbook</span>' +
-        //     '<textarea> And this is a textarea</textarea>' +
-        //     '</div>';
+        // set some values on the div to style it.
+        // normally you do this directly in HTML and 
+        // CSS files.
+        div.style.width = this.width + 'px';
+        div.style.height = this.height + 'px';
+        // div.style.opacity = 0.7;
+        div.style.background = this.colour.getStyle();
 
-        // var cssElement = createCSS3DObject(content);
-        // cssElement.position.set(100, 100, 100);
-        // return cssElement;
-        // scene.add(cssElement);
-
-        // let el = document.createElement("div");
-        // el.innerHTML = "<h1>Hello world!</h1>";
-        // let obj = new CSS3DObject(el);
-
-        // return obj;
-
-        var panel = new THREE.Mesh(geometry, material);
-        this.container.add(panel);
+        const object = new CSS3DObject(div);
+        this.container.add(object);
     }
 
 
