@@ -20,7 +20,6 @@ animate();
 function init() {
   // Scene
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xf0f0f0);
   const gridHelper = new THREE.GridHelper(500, 50);
   scene.add(gridHelper);
 
@@ -36,13 +35,16 @@ function init() {
   // Rendering
   renderer = new THREE.WebGLRenderer({
     // canvas: document.querySelector('#bg'),
-    antialias: true
+    antialias: true,
+    alpha: true,
   });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.getElementById("webgl-canvas").appendChild(renderer.domElement);
 
-  renderer2 = new CSS3DRenderer();
+  renderer2 = new CSS3DRenderer({
+    alpha: true
+  });
   renderer2.setSize(window.innerWidth, window.innerHeight);
   renderer2.domElement.style.position = 'absolute';
   renderer2.domElement.style.top = 0;
@@ -65,55 +67,46 @@ function init() {
     projectData: [
       '<div>' +
       '<h1>Project 1</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
 
       '<div>' +
       '<h1>Project 2</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
 
       '<div>' +
       '<h1>Project 3</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
 
       '<div>' +
       '<h1>Project 4</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
 
       '<div>' +
       '<h1>Project 5</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
 
       '<div>' +
       '<h1>Project 6</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
 
       '<div>' +
       '<h1>Project 7</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
 
       '<div>' +
       '<h1>Project 8</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
 
       '<div>' +
       '<h1>Project 9</h1>' +
-      '<span class="large">Hello Three.js</span>' +
       '<textarea>And this is a textarea</textarea>' +
       '</div>',
     ],
